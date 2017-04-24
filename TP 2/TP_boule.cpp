@@ -60,7 +60,7 @@ int resoudre(int* Tab, int taille, int d1, int d2, int d3,int& plus_moins,int& c
     {
       if(somme_1==0) { return resoudre(Tab, taille/3, d3, d3+(taille/3), d3+(taille/3*2), plus_moins, cpt) ; }
       else if((somme_1<0 && plus_moins<0) || (somme_1>0 && plus_moins>0)) { return resoudre(Tab, taille/3, d1, d1+taille/3, d1+(taille/3*2), plus_moins, cpt) ; }
-      else if((somme_1>0 && plus_moins>0) || (somme_1<0 && plus_moins<0)) { return resoudre(Tab, taille/3, d2, d2+taille/3, d2+(taille/3*2), plus_moins, cpt) ; }
+      else { return resoudre(Tab, taille/3, d2, d2+taille/3, d2+(taille/3*2), plus_moins, cpt) ; }
     }
 
     int somme_2=balance(Tab,taille,d1,d3) ;
