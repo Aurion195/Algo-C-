@@ -48,6 +48,9 @@ int resoudre(int* Tab, int taille, int d1, int d2, int d3,int& plus_moins,int& c
       int somme_2=balance(Tab,taille,d1,d3) ;
       cout << "Pesée : " << cpt << endl ;
       cpt++ ;
+      
+      if((somme_1<0 && somme_2==0) || (somme_1<0 && somme_2<0)) {plus_moins=-1 ;}
+      else {plus_moins=1 ;}
 
       if(somme_1==0) { return d3 ; }
       else if((somme_1>0 && somme_2>0 && plus_moins>0) || (somme_1<0 && somme_2>0 && plus_moins<0)) { return d1; }
