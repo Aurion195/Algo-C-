@@ -36,7 +36,7 @@ int resoudre(int* Tab, int taille, int d1, int d2, int d3,int& plus_moins,int& c
     if(plus_moins!=0)
     {
       int somme_1=balance(Tab,taille,d1,d2) ;
-      //cout << "Pesée : " << cpt << endl ;
+      cout << "Pesée : " << cpt << endl ;
       cpt++ ;
 
       if(somme_1==0) { return d3 ; }
@@ -46,11 +46,11 @@ int resoudre(int* Tab, int taille, int d1, int d2, int d3,int& plus_moins,int& c
     else
     {
       int somme_1=balance(Tab,taille,d1,d2) ;
-      //cout << "Pesée : " << cpt << endl ;
+      cout << "Pesée : " << cpt << endl ;
       cpt++ ;
 
       int somme_3=balance(Tab,taille,d1,d3) ;
-      //cout << "Pesée : " << cpt << endl ;
+      cout << "Pesée : " << cpt << endl ;
       cpt++ ;
 
       if(somme_1==0)
@@ -76,7 +76,7 @@ int resoudre(int* Tab, int taille, int d1, int d2, int d3,int& plus_moins,int& c
   else
   {
     int somme_1=balance(Tab,taille,d1,d2) ;
-    //cout << "Pesée : " << cpt << endl ;
+    cout << "Pesée : " << cpt << endl ;
     cpt++ ;
 
     if(plus_moins!=0)
@@ -85,28 +85,30 @@ int resoudre(int* Tab, int taille, int d1, int d2, int d3,int& plus_moins,int& c
       else if((somme_1<0 && plus_moins>0) || (somme_1>0 && plus_moins<0)) {return resoudre(Tab,taille/3,d2,d2+taille/3,d2+(2*taille/3),plus_moins,cpt) ;}
       else {return resoudre(Tab, taille/3, d1, d1+taille/3, d1+(2*taille/3), plus_moins, cpt) ; }
     }
-
-    int somme_2=balance(Tab,taille,d1,d3) ;
-    //cout << "Pesée : " << cpt << endl ;
-    cpt++;
-
-    if(somme_1==0)
-    {
-      if(somme_2<0) {plus_moins=1 ;}
-      else {plus_moins=-1 ;}
-      return resoudre(Tab,taille/3,d3,d3+taille/3,d3+(2*taille/3),plus_moins,cpt) ;
-    }
-    else if((somme_1>0 && somme_2==0) || (somme_1<0 && somme_2==0))
-    {
-      if(somme_1>0) {plus_moins=-1 ;}
-      else {plus_moins=1 ;}
-      return resoudre(Tab, taille/3, d2, d2+taille/3, d2+(2*taille/3), plus_moins, cpt) ;
-    }
     else
     {
-      if(somme_1>0) {plus_moins=1 ;}
-      else {plus_moins=-1 ;}
-      return resoudre(Tab, taille/3, d1, d1+taille/3, d1+(2*taille/3), plus_moins, cpt) ;
+      int somme_2=balance(Tab,taille,d1,d3) ;
+      cout << "Pesée : " << cpt << endl ;
+      cpt++;
+
+      if(somme_1==0)
+      {
+        if(somme_2<0) {plus_moins=1 ;}
+        else {plus_moins=-1 ;}
+        return resoudre(Tab,taille/3,d3,d3+taille/3,d3+(2*taille/3),plus_moins,cpt) ;
+      }
+      else if((somme_1>0 && somme_2==0) || (somme_1<0 && somme_2==0))
+      {
+        if(somme_1>0) {plus_moins=-1 ;}
+        else {plus_moins=1 ;}
+        return resoudre(Tab, taille/3, d2, d2+taille/3, d2+(2*taille/3), plus_moins, cpt) ;
+      }
+      else
+      {
+        if(somme_1>0) {plus_moins=1 ;}
+        else {plus_moins=-1 ;}
+        return resoudre(Tab, taille/3, d1, d1+taille/3, d1+(2*taille/3), plus_moins, cpt) ;
+      }
     }
   }
 }
@@ -134,12 +136,17 @@ void affichage(int *Tab, int N)
 
 bool valider(int taille)
 {
+
+  cout << "Test pour plus_moins supérieur !" << "\n" << endl ;
 	for(int i=1 ; i<=taille ; i++)
 	{
     int cpt=1 ;
-		int plus_moins=0 ;
+		int plus_moins=0 ;                                                            //Changer plus_moins pour avoir un nombre de pesée différente
+    cout << "Test pour l'indice : " << i << endl ;
 		int * T = question(taille, i, 1);
-		int y=resoudre(T, taille/3, 1, 1+taille/3, 1+(2*taille/3), plus_moins,cpt);
+		int y=resoudre(T, taille/3, 1, 1+taille/3, 1+(2*taille/3), plus_moins,cpt) ;
+    cout << "La boule intruse est la boule : " << y << endl ;
+    cout << "Plus moins est égal à : " << plus_moins << endl ;
     int pm=plus_moins ;
 
 		if(!verifier(T, taille, y, i, pm))
@@ -148,47 +155,39 @@ bool valider(int taille)
 			return false;
 		}
 
-		T=question(taille, i, -1);
-		plus_moins=0;
-		int z=resoudre(T, taille/3, 1, 1+taille/3, 1+(2*taille/3), plus_moins,cpt);
+    cout << "\n" << "---------------------------" << "\n" << endl ;
+  }
+
+  cout << "Test pour plus_moins inférieur !" << "\n" << endl ;
+  for(int j=1 ; j<=taille ; j++)
+  {
+  	int *T_bis=question(taille, j, -1);
+		int plus_moins=0;
+    int cpt_bis=1 ;
+    cout << "Test pour l'indice : " << j << endl ;
+		int z=resoudre(T_bis, taille/3, 1, 1+taille/3, 1+(2*taille/3), plus_moins,cpt_bis);   //J'ai mis des +1, parce que sur mon tableau la premier boule est 1, Par conséquent si on veut
+    cout << "La boule intruse est la boule : " << z << endl ;                             //des paquets équilibre il faut rajouter 1
+    cout << "Plus moins est égal à : " << plus_moins << endl ;
     int pm_2=plus_moins ;
 
-		if(!verifier(T, taille, z,i, pm_2))
+		if(!verifier(T_bis, taille, z,j, pm_2))
 		{
-			cout << "Erreur pour ; " <<" (" << i << ")" << endl;
+			cout << "Erreur pour ; " <<" (" << j << ")" << endl;
 			return false;
 		}
+
+    cout << "\n" << "---------------------------" << "\n" << endl ;
 	}
 
   cout << "Tout es bon !!! :) Vous pouvez partir du cour !! " << endl ;
+
 	return true;
 }
 
 int main()
 {
   bool trouver ;
-
-  /*for(int a=1 ; a<28 ; a++)
-  {
-    int *Tab=question(27,a,10) ;
-    int plus_moins=0 ;
-    int cpt=1 ;
-    //affichage(Tab,27) ;
-
-    cout << "Test de la fonction pour indice : " << a << endl ;
-    int y=resoudre(Tab,9,1,10,19,plus_moins,cpt) ;
-    cout << "La boule intruse est la boule : " << y << endl ;
-    if(plus_moins>0) {cout << "La différence de poids est supétieur !   : " << plus_moins << endl ;}
-    else {cout << "La différence de poids est inférieur !   : " << plus_moins << endl ;}
-
-    int pm=plus_moins ;
-    bool trouve=verifier(Tab,27,y,a,pm) ;
-    if(trouve==true) {cout << "fonctionne" << endl ;}
-    else {cout << "erreur" << endl ;}
-    cout << "----------------------------" << "\n" << endl ;
-  }*/
-
-  trouver=valider(27) ;
+  trouver=valider(27) ;       //Changer la taille pour changer le nombre de boulles
 
   return 0 ;
 }
