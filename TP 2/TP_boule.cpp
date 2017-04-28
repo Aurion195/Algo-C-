@@ -116,12 +116,12 @@ int resoudre(int* Tab, int taille, int d1, int d2, int d3,int& plus_moins,int& c
 bool verifier(int* Tab, int taille, int y, int x, int pm)
 {
   if(x!=y) return false ;
-  for(int i=1 ; i<taille ;i++)
+  for(int i=1 ; i<=taille ;i++)
   {
-    if(pm>0) { if(Tab[y]>Tab[i]) {return true ;} }
-    else if (pm<0) { if(Tab[y]<Tab[i]) {return true ;} }
+    if(pm>0) { if(Tab[y]<Tab[i]) {return false ;} }
+    else if (pm<0) { if(Tab[y]>Tab[i]) {return false;} }
   }
-  return false ;
+  return true ;
 }
 
 void affichage(int *Tab, int N)
