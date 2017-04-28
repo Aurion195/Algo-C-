@@ -43,7 +43,7 @@ int resoudre(int* Tab, int taille, int d1, int d2, int d3,int& plus_moins,int& c
       else if((somme_1>0 && plus_moins>0) || (somme_1<0 && plus_moins<0)) { return d1 ; }
       else if((somme_1<0 && plus_moins>0) || (somme_1>0 && plus_moins<0)) { return d2 ; }
     }
-    else
+    else											//Cette partie est nécessaire car si on a que 3 boulle on ne peut que le résoudre qu'avec cette méthode
     {
       int somme_1=balance(Tab,taille,d1,d2) ;
       cout << "Pesée : " << cpt << endl ;
@@ -91,7 +91,7 @@ int resoudre(int* Tab, int taille, int d1, int d2, int d3,int& plus_moins,int& c
       cout << "Pesée : " << cpt << endl ;
       cpt++;
 
-      if(somme_1==0)
+      if(somme_1==0)									//On a nos deux pesée, on peut maintenant connaître plus ou moins et lui affecter une valeur.
       {
         if(somme_2<0) {plus_moins=1 ;}
         else {plus_moins=-1 ;}
