@@ -175,34 +175,12 @@ using namespace std ;
 
         //On passe au valeur int
         default :
-          int i=0 ;
-          int n=S.size();
-
-          while(n>0)
-          {
-            n-=1 ;
-            V+=(S[i]-'0')*pow(10,n) ;
-            i++ ;
-          }
-          
+	  V = atoi(S.c_str()) ;
           return 'v' ;   
       }
     }
     else
     {
-      int n=S.size();
-      int j=1 ;
-      
-      while(n>1)
-      {
-        n-=1;
-        V+=(S[j]-'0')*pow(10,n-1) ;
-        j++ ;
-      }
-        
-      V*=(-1) ;
-      
-      return 'v' ;
-      } 
-
+	V = atoi(S.c_str()) ;
+	return 'v' ;
     }
